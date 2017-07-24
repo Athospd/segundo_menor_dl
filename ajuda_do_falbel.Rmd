@@ -1,0 +1,46 @@
+---
+title: "Ajuda do Daniel Falbel"
+author: "Athos Petri Damiani"
+date: "15 de julho de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Deep learning veio com tudo e já se firmou como a técnica a ser superada. Porém, junto com a sua fama de resolver todos os problemas, carrega consigo a fama de ser uma "caixa preta". A ênfase dada
+
+## Modelo teórico
+
+$y \sim Ber(p)$
+$p = E[y|x_1] =  logit(b_0 + b_1 * \tanh{(b_2 + b_3 * x_1)})$
+
+com 
+
+- $b_0 = -2$
+- $b_1 = 2$
+- $b_2 = 0$
+- $b_3 = 1$
+
+## Dados
+
+```{r}
+library(keras)
+library(dplyr)
+library(skimr)
+
+# a função logística é a inversa da função logito. Eu não vou usar a logito, mas deixei aí por curiosidade.
+logit <- function(p) log(p) - log(1 - p)
+logistic <- function(x) 1/(1 + exp(-x))
+
+# 
+n <- 100000
+set.seed(19880923)
+df <- data_frame(x_1 = rnorm(n)) %>%
+  mutate(y_1 = rbinom(n, 1, prob = logistic(-2 + 2 * x_1)),
+         y_2 = rbinom(n, 1, prob = logistic(-2 + 2 * tanh(-1 + 1 * x_1))))
+
+skimr::skim(df) %>% skim_print %>% with(numeric)  %>% mutate_if(is.numeric, round, 2) %>% DT::datatable()
+```
+

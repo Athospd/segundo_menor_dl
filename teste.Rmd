@@ -1,0 +1,11 @@
+---
+title: "Regressão Logística em: a menor deep learning do mundo"
+author: "Athos Petri Damiani"
+date: "9 de julho de 2017"
+output: html_document
+---
+
+
+bla
+
+$$E[Y|X] = \frac{1}{1 + \exp{\left(\beta_{p-1} + \beta_p\frac{1}{\frac{\vdots}{1 + \exp{\left(\beta_{6} + \beta_{7}\frac{1}{1 + \exp{\left(\beta_4 + \beta_5\frac{1}{1 + \exp{\left(\beta_2 + \beta_3\frac{1}{1 + \exp{\left(\beta_0 + \beta_1X\right)}}\right)}}\right)}}\right)}}}\right)}}$$

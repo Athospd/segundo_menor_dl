@@ -1,5 +1,5 @@
 ---
-title: "Regress„o LogÌstica em: a menor deep learning do mundo"
+title: "Regress√£o Log√≠stica em: a menor deep learning do mundo"
 author: "Athos Petri Damiani"
 date: "9 de julho de 2017"
 output: html_document
@@ -9,40 +9,40 @@ Deep learning
 
 ## Objetivos
 
-A finalidade do post È:
+A finalidade do post √©:
 
-- aproximar o Deep Learning do que j· havia de conhecido pela maioria dos analistas de dados.
-- instigar a todos que vieram antes do deep learning a estudar e a ficar ‡ vontade com as novidades em torno dela.
-- mostrar que muitos profissionais inseridos na ·rea de machine learning j· conheciam grande parte do que o deep learning usa.
-- levantar discuss„o sobre alguns mitos que n„o s„o construtivos para a comunidade dos analistas de dados.
+- aprender a fazer uma regress√£o log√≠stica com o keras
+- aprender a fazer um PCA com o keras
+- aproximar o Deep Learning do que j√° havia de conhecido pela maioria dos analistas de dados.
+- instigar a todos que vieram antes do deep learning a estudar e a ficar √† vontade com as novidades em torno dela.
+- mostrar que muitos profissionais inseridos na √°rea de machine learning j√° conheciam grande parte do que o deep learning usa.
+- levantar discuss√£o sobre alguns mitos que n√£o s√£o construtivos para a comunidade dos analistas de dados.
 
 ## O que me motivou a escrever sobre isso
 
-Li muito por aÌ estatÌsticos, cientistas da computaÁ„o, engenheiros de dados a afins questionando o futuro do Machine Learning e se tudo que conhecÌamos antes sobre modelagem estatÌstica havia ficado obsoleto (como essa pergunta no Quora: [Should I Quit Machine Learning?](https://www.quora.com/Should-I-quit-machine-learning)).
+Li estat√≠sticos, cientistas da computa√ß√£o, engenheiros de dados a afins questionando o futuro do Machine Learning e se tudo que conhec√≠amos antes sobre modelagem estat√≠stica havia ficado obsoleto (como essa pergunta no Quora: [Should I Quit Machine Learning?](https://www.quora.com/Should-I-quit-machine-learning)).
 
-Nas conversas com pessoas prÛximas frequentemente vinham a tona manifestaÁıes de ufania pela novidade e frustraÁ„o pela "obsolÍncia" do que se havia investido tempo estudando antes. E vale ressaltar que esses sentimentos de desilus„o vinham de pessoas incrÌveis que despertavam admiraÁ„o da comunidade cientÌfica pela seu intelecto e paix„o pela ·rea.
+E em conversas com pessoas pr√≥ximas percebia certa ufania pela novidade e frustra√ß√£o pela "obsol√™ncia" do que se havia investido tempo estudando antes. 
 
-Para ajudar a piorar, aproveitadores pegaram jacarÈ nessa onda para fazer marketing destrutivo com o intuito de desvalorizar e dividir a comunidade dos analistas de dados.
-Por exemplo, random forest È coisa do passado e DL veio para substituir. Ou ent„o "DL È uma coisa e Machine Learning È outra", assim quem sabia machine learning estaria inapto de atuar em ·reas destinadas a DL (um absurdo). Algo bem similar de marketing malicioso aconteceu com outras palavras da moda como *data science*, *big data*, *Python versus R* e a prÛpria *machine learning*.
+Para ajudar a piorar, aproveitadores pegaram jacar√© nessa onda para fazer marketing destrutivo com o intuito de desvalorizar e dividir a comunidade dos analistas de dados. Algo bem similar de marketing malicioso aconteceu com outras palavras da moda como *data science*, *big data*, *Python versus R* e a pr√≥pria *machine learning*. Antes havia a cl√°ssica propaganda de que a empresa X utilizava MACHINE LEARNING em vez de modelos preditivos. Agora a coisa evoluiu e apelam para o uso da palavra Deep Learning.
 
-Minha vis„o È: 
+O que realmente importa:
 
-1) Deep Learning È uma grande novidade e colocou a InteligÍncia Artificial em evidÍncia. 
-2) Quem manjava Machine Learning antes, vai conseguir aplicar 95% do seu conhecimento nas aplicaÁıes de Deep Learning (incluindo baysianismo, bootstrap, inferÍncia, probabilidade e a boiada toda).
-3) Deep Learning tem que ser visto como uma ferramenta a mais na caixa do analista de dados e n„o um substituto.
+1) Deep Learning √© uma grande novidade e colocou a Intelig√™ncia Artificial em evid√™ncia. 
+2) Quem manjava Machine Learning antes vai conseguir aplicar 95% do seu conhecimento nas aplica√ß√µes de Deep Learning (incluindo baysianismo, bootstrap, infer√™ncia, probabilidade e a boiada toda).
+3) Deep Learning tem que ser visto como uma ferramenta a mais na caixa do analista de dados e n√£o um substituto.
 
-E para amenizar essa situaÁ„o resolvi ajustar uma regress„o logÌstica usando deep learning para que todos que j· fizeram uma regress„o logÌstica antes possam dizer que j· fizeram uma rede neural tambÈm! Confesso ter uma leve motivaÁ„o provocativa, mas qual graÁa teria se assim n„o fosse? =P
+E para abordar essa quest√£o resolvi ajustar uma regress√£o log√≠stica usando deep learning para que todos que j√° fizeram uma regress√£o log√≠stica antes possam dizer que j√° fizeram uma rede neural tamb√©m! Confesso ter uma leve motiva√ß√£o provocativa, mas qual gra√ßa teria se assim n√£o fosse? =P
+
 
 ## O que faremos
 
-- Regress„o logÌstica para $Y_1$ (com `glm`)
+- Regress√£o log√≠stica para $Y_1$ (com `glm`)
 - Deep Learning para $Y_1$ (com `keras`)
-- Mostrar que regress„o logÌstica n„o È o melhor para $Y_2$ e que Deep Learning vai alÈm da limitaÁ„o dos modelos lineares (com `glm`)
+- Mostrar que regress√£o log√≠stica n√£o √© o melhor para $Y_2$ e que Deep Learning vai al√©m da limita√ß√£o dos modelos lineares (com `glm`)
 - Deep Learning para $Y_2$ (com `keras`)
-- Regress„o com PCA com modelo linear (com `princomp` e `glm`)
-- Regress„o com PCA com pipelines de deep learning (porÈm ainda linear!) (com `autoencoder` e `keras`)
 
-M„os ‡ obra.
+M√£os √† obra.
 
 ### Pacotes
 
@@ -52,13 +52,12 @@ library(dplyr)
 library(tidyr)
 library(forcats)
 library(ggplot2)
-library(skimr)
 ```
 
 
-## Regress„o logÌstica versus Deep Learning
+## Regress√£o log√≠stica versus Deep Learning
 
-Hora de ajustar modelos para os mesmos dados de duas maneiras diferentes: regress„o logÌstica com `glm` e deep learning com o `keras`.
+Hora de ajustar modelos para os mesmos dados de duas maneiras diferentes: regress√£o log√≠stica com `glm` e deep learning com o `keras`.
 
 ### Dados simulados
 
@@ -73,7 +72,7 @@ df <- data_frame(x = runif(n, -2, 2.5)) %>%
          y_2 = rbinom(n, 1, prob = logistic(-1 + 2 * tanh(-1 + 2 * x)))) # y_2
 ```
 
-O cÛdigo acima criou duas vari·veis respostas (*targets*). Em representaÁ„o matem·tica, elas possuem as seguintes definiÁıes:
+O c√≥digo acima criou duas vari√°veis respostas (*targets*). Em representa√ß√£o matem√°tica, elas possuem as seguintes defini√ß√µes:
 
 **Resposta `y_1`**
 
@@ -84,14 +83,14 @@ $$E[Y_1|x] = \text{logistic}{(-1 + 2x)} = \frac{1}{1 + e^{{-(-1 + 2x)}}}$$
 
 $$E[Y_2|x] = \text{logistic}{(-1 + 2\tanh(-1 + 2x))} = \frac{1}{1 + e^{{-(-1 + 2\tanh(-1 + 2x))}}}$$
 
-$x$ È linear no logito de `y_1`, ent„o a regress„o logÌstica vai cair bem para descobrir os par‚metros $-1$ e $2$. 
-PorÈm, $x$ n„o È linhar no logito de `y_2` e por isso a regress„o logÌstica n„o conseguir· representar fielmente o gerador de `y_2`.
+$x$ √© linear no logito de `y_1`, ent√£o a regress√£o log√≠stica vai cair bem para descobrir os par√¢metros $-1$ e $2$. 
+Por√©m, $x$ n√£o √© linhar no logito de `y_2` e por isso a regress√£o log√≠stica n√£o conseguir√° representar fielmente o gerador de `y_2`.
 
-**OBS 1:** A forma $\text{logistic}{(\beta_0 + \beta_1\tanh(\beta_2 + \beta_3X))}$ tem par‚metros dentro do funÁ„o `tanh`, o que significa que a nossa hipÛtese para $E[Y_2|x]$ n„o È mais **linear** nos par‚metros. Por isso que modelos lineares (como o nome sugere) n„o s„o mais indicados. E a **n„o linearidade** È uma das generalizaÁıes que as redes neurais nos fornece! (sim, isso È muito relevante)
+**OBS 1:** A forma $\text{logistic}{(\beta_0 + \beta_1\tanh(\beta_2 + \beta_3X))}$ tem par√¢metros dentro do fun√ß√£o `tanh`, o que significa que a nossa hip√≥tese para $E[Y_2|x]$ n√£o √© mais **linear** nos par√¢metros. Por isso que modelos lineares (como o nome sugere) n√£o s√£o mais indicados. E a **n√£o linearidade** √© uma das generaliza√ß√µes que as redes neurais nos fornece! (sim, isso √© muito relevante)
 
-**OBS 2:** È claro que nesse caso bem simples de uma vari·vel conseguirÌamos inspecionar os dados para chegar em boas transformaÁıes de $x$ de tal forma que o ajuste da logÌstica ficasse t„o bom quanto o de uma rede neural, mas se acrescent·ssemos muitas outras vari·veis aÌ a coisa complicaria!
+**OBS 2:** √© claro que nesse caso bem simples de uma vari√°vel conseguir√≠amos inspecionar os dados para chegar em boas transforma√ß√µes de $x$ de tal forma que o ajuste da log√≠stica ficasse t√£o bom quanto o de uma rede neural, mas se acrescent√°ssemos muitas outras vari√°veis a√≠ a coisa complicaria!
 
-Em representaÁ„o de redes neurais, as fÛrmulas acima ficam assim:
+Em representa√ß√£o de redes neurais, as f√≥rmulas acima ficam assim:
 
 **Resposta `y_1`**
 
@@ -106,7 +105,7 @@ knitr::include_graphics("2017-07-29-segundo-menor-dl/y2.png")
 ```
 
 
-O que era **funÁ„o de ligaÁ„o** no GLM, em redes neurais virou **funÁ„o de ativaÁ„o** (no final eu falo mais sobre vocabul·rios que mudaram).
+O que era **fun√ß√£o de liga√ß√£o** no GLM, em redes neurais virou **fun√ß√£o de ativa√ß√£o** (no final eu falo mais sobre vocabul√°rios que mudaram).
 
 ### Olhada nos dados
 
@@ -131,45 +130,50 @@ df %>%
   theme(axis.text.x = element_blank(),panel.grid.major.x = element_blank(), panel.grid.minor.y = element_blank())
 ```
 
-O gr·fico da direita mostra que `x` È proporcional ao logito das probabilidades de `y_1` (em vermelho) como era pra ser por termos construÌdo assim.
-J· com o `y_2` (em azul) ainda ficou parecendo uma sigmoide mesmo depois da transformaÁ„o.
+O gr√°fico da direita mostra que `x` √© proporcional ao logito das probabilidades de `y_1` (em vermelho) como era pra ser por termos constru√≠do assim.
+J√° com o `y_2` (em azul) ainda ficou parecendo uma sigmoide mesmo depois da transforma√ß√£o.
 
 ### AJuste de modelos
 
-#### Regress„o logÌstica para $Y_1$ (com `glm`)
+#### Regress√£o log√≠stica para $Y_1$ (com `glm`)
 
-```{r, results='hide'}
+```{r, results='hide', eval=FALSE}
 # modelo glm 1 ------------------------------------------------------
 modelo_glm_1 <- glm(y_1 ~ x, data = df, family = binomial)
 ```
 
-```{r}
+```{r, eval=FALSE}
 # coefficients
 coef(modelo_glm_1)
+
+# (Intercept)           x 
+#   -1.018434    2.011647 
 
 # accuracy
 conf_matrix_glm_1 <- table(modelo_glm_1$fitted.values > 0.5, df$y_1)
 sum(diag(conf_matrix_glm_1))/sum(conf_matrix_glm_1)
+
+# [1] 0.85061
 ```
 
-As estimativas ficaram bem prÛximas dos verdadeiros valores $\beta_0 = -1$ e $\beta_1 = 2$. 
+As estimativas ficaram bem pr√≥ximas dos verdadeiros valores $\beta_0 = -1$ e $\beta_1 = 2$. 
 
-A acur·cia foi de **85%**.
+A acur√°cia foi de **85%**.
 
 #### Deep Learning para $Y_1$ (com `keras`)
 
-Vamos montar nossa hipÛtese para $E[Y_1|x]$.
+Vamos montar nossa hip√≥tese para $E[Y_1|x]$.
 ```{r, eval=FALSE}
 # modelo keras 1 -------------------------------------------------------
-# input: 1 vari·vel: o x.
+# input: 1 vari√°vel: o x.
 input_keras_1 <- layer_input(1, name = "modelo_keras_1")
 
-# output: n„o h· camadas escondidas, apenas a funÁ„o de ligaÁ„o logit diretamente.
+# output: n√£o h√° camadas escondidas, apenas a fun√ß√£o de liga√ß√£o logit diretamente.
 output_keras_1 <- input_keras_1 %>% 
   layer_dense(units = 1, name = "camada_unica") %>%
-  layer_activation("sigmoid", input_shape = 1, name = "link_logistic") # sigmoid no tensorflow È a logistic
+  layer_activation("sigmoid", input_shape = 1, name = "link_logistic") # sigmoid no tensorflow √© a logistic
 
-# keras_model È o que constrÛi a nossa hipÛtese f(x) (da E[y] = f(x))
+# keras_model √© o que constr√≥i a nossa hip√≥tese f(x) (da E[y] = f(x))
 modelo_keras_1 <- keras_model(input_keras_1, output_keras_1)
 
 # 
@@ -193,79 +197,248 @@ Non-trainable params: 0
 _____________________________________________________________
 ```
 
-A hipÛtese construÌda tem 2 par‚metros. Parece que est· certo! $\beta_0$ e $\beta_1$.
 
-**Agora È a vez da funÁ„o de perda.**
 
-Como nosso objetivo È construir uma regress„o logÌstica, nÛs Vamos escolher a funÁ„o de perda [binary_crossentropy](http://deeplearning.net/software/theano/library/tensor/nnet/nnet.html#theano.tensor.nnet.nnet.binary_crossentropy) que È sinÙnimo de [deviance](https://en.wikipedia.org/wiki/Deviance_(statistics)) da logÌstica, termo mais comum no mundo da estatÌstica.
+A hip√≥tese constru√≠da tem 2 par√¢metros. Parece que est√° certo! $\beta_0$ e $\beta_1$.
 
-A mÈtrica `'accuracy'` n„o entra no otimizador da funÁ„o de perda, a gente usa ela para comparar os modelos que criamos. No caso vamos comparar com o modelo `glm` ajustado acima (mas, por exemplo, em caso de eventos raros a `'accuracy'` n„o vai ser muito informativa, daÌ poderÌamos usar `'auc'`, `'gini'`, etc.).
+**Agora √© a vez da fun√ß√£o de perda.**
+
+Como nosso objetivo √© construir uma regress√£o log√≠stica, n√≥s vamos escolher a fun√ß√£o de perda [binary_crossentropy](http://deeplearning.net/software/theano/library/tensor/nnet/nnet.html#theano.tensor.nnet.nnet.binary_crossentropy) que √© sin√¥nimo de [deviance](https://en.wikipedia.org/wiki/Deviance_(statistics)) da log√≠stica, termo mais comum no mundo da estat√≠stica.
+
+A m√©trica `'accuracy'` n√£o entra no otimizador da fun√ß√£o de perda, a gente usa ela para comparar os modelos que criamos. No caso vamos comparar com o modelo `glm` ajustado acima (mas, por exemplo, em caso de eventos raros a `'accuracy'` n√£o vai ser muito informativa, da√≠ poder√≠amos usar `'auc'`, `'gini'`, etc.).
+
+```{r, echo=FALSE, message=FALSE, eval= FALSE}
+modelo_keras_1 %>% compile(
+  loss = 'binary_crossentropy',
+  optimizer = optimizer_sgd(lr = 0.4),
+  metrics = c('accuracy')
+)
+
+modelo_keras_1_fit <- modelo_keras_1 %>% fit(
+  x = df$x, 
+  y = df$y_1, 
+  epochs = 20, 
+  batch_size = 1000,
+  verbose = 0
+)
+```
 
 ```{r, eval=FALSE}
+# coefficients
+modelo_keras_1 %>% get_layer("camada_unica") %>% get_weights
 
-modelo_keras_1 %>% compile(
+# [[1]]
+#          [,1]
+# [1,] 2.000054
+# 
+# [[2]]
+# [1] -1.015561
+
+# accuracy
+loss_and_metrics_1 <- modelo_keras_1 %>% evaluate(df$x, df$y_1, batch = 100000, verbose = 0)
+loss_and_metrics_1[[2]]
+
+# [1] 0.85053
+```
+
+Resultados id√™nticos! Era para assim ser porque constru√≠mos a mesma hip√≥tese e a memsa fun√ß√£o de perda do `glm`.
+
+
+
+
+
+
+
+
+#### Regress√£o log√≠stica para $Y_2$ (com `glm`)
+
+Para modelar $Y_2$ vamos pisar em terrenos que os modelos lineares n√£o pisam. 
+Primeiro tento ajustar uma curva uasndo `x` e a transforma√ß√£o `tanh(x)`. Esse preditor eu suponho que escolhi depois de uma minuciosa e demorada inspe√ß√£o dos dados (tentei simular mais ou menos o que eu faria numa modelagem onde eu que teria que construir as features na m√£o).
+
+```{r, eval= FALSE}
+# modelo glm 2 ------------------------------------------------------
+modelo_glm_2 <- glm(y_2 ~ x + tanh(x), data = df, family = binomial)
+
+# coefficients
+coef(modelo_glm_2)
+
+# (Intercept)           x     tanh(x) 
+#  -1.6698641   0.3043212   2.0936353
+
+# accuracy
+conf_matrix_glm_2 <- table(modelo_glm_2$fitted.values > 0.5, df$y_2)
+sum(diag(conf_matrix_glm_2))/sum(conf_matrix_glm_2)
+
+# [1] 0.82204
+```
+
+Acur√°cia de 82%, nada mal. Mas a hip√≥tese e par√¢metros foram distintos do verdadeiro gerador dos dados. Vamos usar redes neurais para resolver o problema de n√£o linearidade.
+
+
+
+
+
+#### Deep Learning para $Y_2$ (com `keras`)
+
+
+Hip√≥tese para $E[Y_2|x]$.
+
+```{r, eval = FALSE}
+# modelo keras 2 -------------------------------------------------------
+input_keras_2 <- layer_input(1, name = "modelo_keras_2")
+
+output_keras_2 <- input_keras_2 %>%
+  layer_dense(units = 1, name = "camada_um") %>% 
+  layer_activation("tanh", input_shape = 1, name = "tanh_de_dentro") %>%
+  layer_dense(units = 1, input_shape = 1, name = "camada_dois") %>% 
+  layer_activation("sigmoid", input_shape = 1, name = "link_logistic")
+
+modelo_keras_2 <- keras_model(input_keras_2, output_keras_2)
+
+summary(modelo_keras_2)
+```
+```
+Model
+_____________________________________________________________
+Layer (type)                Output Shape           Param #   
+=============================================================
+modelo_keras_2 (InputLayer) (None, 1)              0         
+_____________________________________________________________
+camada_um (Dense)           (None, 1)              2         
+_____________________________________________________________
+tanh_de_dentro (Activation) (None, 1)              0         
+_____________________________________________________________
+camada_dois (Dense)         (None, 1)              2         
+_____________________________________________________________
+link_logistic (Activation)  (None, 1)              0         
+=============================================================
+Total params: 4.0
+Trainable params: 4.0
+Non-trainable params: 0.0
+_____________________________________________________________
+
+```
+Quatro par√¢metros 'trein√°veis', √© isso a√≠! Dois par√¢metros de dentro do `tanh` e os dois par√¢metros de fora. Precisamos que o keras nos devolva -1, 2, -1 e 2 do jeito que geramos os dados.
+
+**Fun√ß√£o de custo**
+
+```{r, eval = FALSE}
+modelo_keras_2 %>% compile(
   loss = 'binary_crossentropy',
   optimizer = optimizer_sgd(lr = 0.1),
   metrics = c('accuracy')
 )
 
-modelo_keras_1_fit <- modelo_keras_1 %>% fit(
-  x = df$x_1, 
-  y = df$y_1, 
-  epochs = 2, 
-  batch_size = 10000
+modelo_keras_2_fit <- modelo_keras_2 %>% fit(
+  x = df$x, 
+  y = df$y_2, 
+  epochs = 20, 
+  batch_size = 100,
+  verbose = 0
 )
 
 # coefficients
-modelo_keras_1 %>% get_layer("camada_unica") %>% get_weights
+modelo_keras_2 %>% get_layer("camada_um") %>% get_weights
+
+# [[1]]
+#          [,1]
+# [1,] 2.012015
+# 
+# [[2]]
+# [1] -1.058052
+
+modelo_keras_2 %>% get_layer("camada_dois") %>% get_weights
+
+# [[1]]
+#          [,1]
+# [1,] 1.981977
+# 
+# [[2]]
+# [1] -1.006567
 
 # accuracy
-loss_and_metrics_1 <- modelo_keras_1 %>% evaluate(df$x_1, df$y_1, batch = 100000)
-loss_and_metrics_1[[2]]
+loss_and_metrics_2 <- modelo_keras_2 %>% evaluate(df$x, df$y_2, batch_size = 100000)
+loss_and_metrics_2[[2]]
+
+# [1] 0.82221
+```
+
+Precis√£o de **82%** tamb√©m, mas agora os par√¢metros est√£o bem pr√≥ximos daqueles que geraram os dados! Acabamos de ver um conjunto de par√¢metros sendo encontrados mesmo com rela√ß√£o n√£o linear entre eles e a m√©dia.
+
+A precis√£o entre os dois modelos at√© que se equiparou, mas o gr√°fico das hip√≥teses encontradas (abaixo) mostra que a curva do `glm` est√° pior do que a curva do `keras`.
+
+```{r}
+df %>% 
+  select(x, y_2) %>%
+  mutate(x_cat = cut_number(x, n = 50)) %>%
+  group_by(x_cat) %>%
+  summarise(p = mean(y_2),
+            x = mean(x),
+            keras = logistic(-1.006567 + 1.981977 * tanh(-1.058052 + 2.012015 * x)), 
+            glm = logistic(-1.6698641 + 0.3043212*x + 2.0936353 * tanh(x)),
+            n = n()) %>%
+  mutate(logit_p = logit(p)) %>% 
+  gather(Modelo, estimativa, keras, glm) %>%
+  ggplot() +
+  geom_point(aes(x = x_cat, y = p)) +
+  geom_line(aes(x = x_cat, y = estimativa, colour = Modelo, group = Modelo)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  labs(x = "x", colour = "resposta")
 ```
 
 
 
 
 
-## Discuss„o
+#### (B√¥nus) PCA com autoencoer
 
-Na minha opini„o (n„o È a opini„o da curso-r.com) aconteceu de que muita coisa antiga e consagrada teve seu nome mudado e apresentado como novo e isso acabou ofuscando as grandes contribuiÁıes realmente relevantes das pesquisas em torno das redes neurais e do deep learning. 
+PCA e autoencodes servem na pr√°tica para reduzir a dimensionalidade dos dados. PCA √© um caso particular de autoencoder com apenas uma camada e fun√ß√µes de ativa√ß√£o lineares. O post [Construindo Autoencoders](http://curso-r.com/blog/2017/06/26/2017-06-26-construindo-autoencoders/) ensina a fazer e recomendo a leitura.
 
-Eu declaro o post bem sucedido se o escrito acima despertou curiosidade em aprender mais sobre deep learning para agregar ao trabalho que j· havia sendo feito.
-Vale mais a pena trazer todos os praticantes de estatÌstica e machine learning juntos nessa novidade do que nos dividirmos. 
+Resumo: autoencoder √© uma t√©cnica incr√≠vel que generaliza o PCA. 
 
-Para aplicar deep learning sugiro conhecer o Keras, um pacote incrÌvel que usa o tensorflow ou o theano por tr·s. Acredito que vocÍs ver„o muitos posts sobre o assunto por aqui! (podem encher o saco do Dan Falbel, Um dos sÛcios da [curso-r.com](http://curso-r.com), que est· envolvido no desenvolvimento desse pacote em R =]).
 
-E mais, acredito que mais do que nunca a fundamentaÁ„o teÛrica e interpretaÁıes ter„o seu valor indo ‡s alturas. Com a facilidade que o deep learning nos trouxe para fazer um modelo preditivo, h· o risco de sermos soterrados por caixas pretas feitas por pessoas que simplesmente negligenciaram aspectos importantes como interpretabilidade, causalidade e generalizaÁ„o por pura falta de preparo. Talvez o bayesianismo se desponte (mais uma vez) como a soluÁ„o para problemas qualitativos num mundo cada vez mais bagunÁado.
 
-Puxando o gancho do bayesianismo (e inferÍncias em geral), os resultados j· obtidos em cima de modelos lineares ainda se aplicam em deep learning, uma vez que podemos construir modelos lineares neles. A vantagem agora È que todas as demais ferramentas que se usam em deep learning e que n„o afetam a linearidade podem ser utilizadas, como convolucional, recorrente, max pooling, drop out e tantas outras.
 
+
+## Discuss√£o
+
+Na minha opini√£o (n√£o √© a opini√£o da curso-r.com) aconteceu de que muita coisa antiga e consagrada teve seu nome mudado e apresentado como novo e isso acabou ofuscando as grandes contribui√ß√µes realmente relevantes das pesquisas em torno das redes neurais e do deep learning. 
+
+Percebe-se que o Deep Learning generalizou bastante coisa e por isso eu declaro o post bem sucedido se o escrito acima despertou curiosidade em aprender mais sobre deep learning para agregar ao trabalho que j√° havia sendo feito.
+Vale mais a pena trazer todos os praticantes de estat√≠stica e machine learning juntos nessa novidade do que nos dividirmos. 
+
+Acredito que mais do que nunca a fundamenta√ß√£o te√≥rica e interpreta√ß√µes ter√£o seu valor potencializado com a dissemina√ß√£o do deep learning. Com o mito de que deep learning seja uma panaceia e com a facilidade que ela nos trouxe para fazer um modelo preditivo, h√° o risco de sermos soterrados por caixas pretas feitas por pessoas negligentes com aspectos importantes como interpretabilidade, causalidade e generaliza√ß√£o. Talvez o bayesianismo se desponte (mais uma vez) como a solu√ß√£o para problemas qualitativos num mundo cada vez mais obscuro trazendo √† luz os excessos dos modelos complexos e os benef√≠cios dos modelos simples.
+
+Puxando o gancho do bayesianismo (e infer√™ncias em geral), os resultados j√° obtidos em cima de modelos lineares ainda se aplicam em deep learning. E tamb√©m temos a vantagem de que todas as demais ferramentas que se usam em deep learning e que n√£o afetam a linearidade dos par√¢metros podem ser utilizadas, como convolucional, recorrente, max pooling, drop out, autoencoder e tantas outras.
+
+
+Para finalizar, na pr√°tica sugiro aplicar deep learning com o Keras, um pacote incr√≠vel que usa o tensorflow ou o theano por tr√°s. Acredito que voc√™s ver√£o muitos posts sobre o assunto por aqui! (podem encher o saco do Dan Falbel, um dos s√≥cios da [curso-r.com](http://curso-r.com), que est√° envolvido no desenvolvimento desse pacote em R =]).
 
 
 ## Curiosidades
 
-### N-Èsimo menor deep learning
+### N-√©simo menor deep learning
 
-Vimos acima o menor e o segundo menor Deep Learnings (que de profundo n„o tÍm nada =P). Mas podemos ir o t„o profundo quanto quisermos!
-A representaÁ„o de redes neurais sai f·cil:
+Vimos acima o menor e o segundo menor Deep Learnings (que de profundo n√£o t√™m nada =P). Mas podemos ir o t√£o profundo quanto quisermos!
+A representa√ß√£o de redes neurais sai f√°cil:
 
 ```{r, fig.height=2, echo=FALSE}
 knitr::include_graphics("2017-07-29-segundo-menor-dl/dl_inf.png")
 ```
 
-J· a representaÁ„o matem·tica fica esquisita:
+J√° a representa√ß√£o matem√°tica fica esquisita:
 
 \newcommand*{\bfrac}[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
 
 $$E[Y|X] = \frac{1}{1 + \exp{\left(\beta_{p-1} + \beta_p\frac{1}{\bfrac{\vdots}{1 + \exp{\left(\beta_{6} + \beta_{7}\frac{1}{1 + \exp{\left(\beta_4 + \beta_5\frac{1}{1 + \exp{\left(\beta_2 + \beta_3\frac{1}{1 + \exp{\left(\beta_0 + \beta_1X\right)}}\right)}}\right)}}\right)}}}\right)}}$$
 
-### Vocabul·rio
+### Vocabul√°rio
 
-Os jargıes e termos do deep learning foram herdados de um outro contexto diferente do da modelagem preditiva estudada na estatÌstica e por isso acabaram surgindo in˙meros sinÙnimos. Alguns deles s„o:
+Os jarg√µes e termos do deep learning foram herdados de um outro contexto diferente do da modelagem preditiva estudada na estat√≠stica e por isso acabaram surgindo in√∫meros sin√¥nimos. Alguns deles s√£o:
 
 - Softmax
-- funÁ„o de ativaÁ„o
+- fun√ß√£o de ativa√ß√£o
 - sigmoide
 - pesos
 - binary cross entropy
